@@ -24,3 +24,10 @@ Primeiro customize o arquivo `.env`.
 |DCIM_PASSWD_FILE   |/secrets/opendcim_password    |Usar com swarm secrets|
 |SSL_CERT_FILE      |/certs/ssl-cert.pem|se o certificado e a chave estiverem definidos, o SSL será ativado|
 |SSL_KEY_FILE       |/certs/opendcim-ssl-cert.key|Caminho da chave do certificado do SSL|
+
+## Uso de TLS
+
+Vamos criar o diretório no host para armazenar os certificados que podem ser gerados com os comandos:
+
+    mkdir -p certs
+    openssl req -x509 -newkey rsa:4096 -keyout certs/opendcim-ssl-cert.key -out certs/opendcim-ssl-cert.pem -days 365 -nodes -subj "/C=BR/ST=Estado/L=Cidade/O=Instituição/OU=Departamento/CN=dcim.example.com"
