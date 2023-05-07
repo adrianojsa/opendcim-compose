@@ -1,5 +1,5 @@
-# opendcim21-docker-compose
-Serviço OpenDCIM 21.01 em container Docker sob Debian 11 e PHP 7.4
+# OpenDCIM com Docker
+Serviço OpenDCIM 21.01 em container com Debian 11 e PHP 7.4
 
 [OpenDCIM](https://www.opendcim.org) é:
 
