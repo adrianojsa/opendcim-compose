@@ -31,5 +31,5 @@ Primeiro customize o arquivo `.env`.
 
 Vamos criar o diretório no host para armazenar os certificados que podem ser gerados com os comandos:
 
-    mkdir -p certs
+    mkdir -p certs data
     openssl req -x509 -newkey rsa:4096 -keyout certs/opendcim-ssl-cert.key -out certs/opendcim-ssl-cert.pem -days 365 -nodes -subj "/C=BR/ST=Estado/L=Cidade/O=Instituição/OU=Departamento/CN=dcim.example.com"
