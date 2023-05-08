@@ -5,28 +5,27 @@ ARG VER=21.01
 ARG OPENDCIMFILE=$VER.tar.gz
 
 RUN sed -i 's/bullseye\/updates main/bullseye\/updates main contrib non-free/' /etc/apt/sources.list \
-&& sed -i 's/bullseye main/bullseye main contrib non-free/' /etc/apt/sources.list  \
-&& apt update && apt install -y -q --no-install-recommends \
-snmp \
-snmp-mibs-downloader \
-graphviz \
-libsnmp-dev \
-libpng-dev \
-libjpeg-dev \
-locales \
-libldap2-dev \
-libzip-dev \
-zip \
-nano \
-&& ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
-&& ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
-&& docker-php-ext-install pdo pdo_mysql gettext snmp gd zip ldap \
-&& mkdir -p /var/www && cd /var/www \
-&& wget -q $OPENDCIMPATH/$OPENDCIMFILE \
-&& tar xzf $OPENDCIMFILE \
-&& rm -f $OPENDCIMFILE \
-&& mv /var/www/openDCIM-$VER /var/www/dcim \
-&& cp /var/www/dcim/db.inc.php-dist /var/www/dcim/db.inc.php
+    && sed -i 's/bullseye main/bullseye main contrib non-free/' /etc/apt/sources.list  \
+    && apt update && apt install -y -q --no-install-recommends \
+        snmp \
+        snmp-mibs-downloader \
+        graphviz \
+        libsnmp-dev \
+        libpng-dev \
+        libjpeg-dev \
+        locales \
+        libldap2-dev \
+        libzip-dev \
+        zip \
+    && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
+    && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
+    && docker-php-ext-install pdo pdo_mysql gettext snmp gd zip ldap \
+    && mkdir -p /var/www && cd /var/www \
+    && wget -q $OPENDCIMPATH/$OPENDCIMFILE \
+    && tar xzf $OPENDCIMFILE \
+    && rm -f $OPENDCIMFILE \
+    && mv /var/www/openDCIM-$VER /var/www/dcim \
+    && cp /var/www/dcim/db.inc.php-dist /var/www/dcim/db.inc.php
 
 #---Criando nova imagem para diminuir as camadas e copiar os diretórios da aplicação compilada para nova imagem. 
 
@@ -43,23 +42,23 @@ COPY apache2.conf /etc/apache2/apache2.conf
 COPY locale.gen /etc
 
 RUN sed -i 's/bullseye\/updates main/bullseye\/updates main contrib non-free/' /etc/apt/sources.list \
-&& sed -i '$adeb http:\/\/ftp.de.debian.org/debian bullseye main' /etc/apt/sources.list \
-&& sed -i 's/bullseye main/bullseye main contrib non-free/' /etc/apt/sources.list \
-&& apt update && apt install -y -q --no-install-recommends \
-snmp \
-curl \
-gettext \
-snmp-mibs-downloader \
-graphviz \
-libsnmp-base libsnmp40 \
-libpng16-16 \
-libjpeg62-turbo \
-locales \
-nano \
-libzip-dev \
-&& ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
-&& ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
-&& a2enmod rewrite
+    && sed -i '$adeb http:\/\/ftp.de.debian.org/debian bullseye main' /etc/apt/sources.list \
+    && sed -i 's/bullseye main/bullseye main contrib non-free/' /etc/apt/sources.list \
+    && apt update && apt install -y -q --no-install-recommends \
+        snmp \
+        curl \
+        gettext \
+        snmp-mibs-downloader \
+        graphviz \
+        libsnmp-base libsnmp40 \
+        libpng16-16 \
+        libjpeg62-turbo \
+        locales \
+        nano \
+        libzip-dev \
+    && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
+    && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
+    && a2enmod rewrite
 
 # desabiita mensagens de erro na tela para evitar redirecionamento de falhas na instalação
 RUN echo "display_errors = Off"  | tee /usr/local/etc/php/php.ini
