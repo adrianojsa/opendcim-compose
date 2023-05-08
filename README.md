@@ -1,5 +1,7 @@
 # OpenDCIM com Docker
-Serviço OpenDCIM 21.01 em container com Debian 11 e PHP 7.4
+Este projeto usa como base o trabalho do usuário [Luca lucamaro](https://github.com/lucamaro/opendcim-container).
+
+Aqui você encontra o serviço OpenDCIM na versão 21.01 em container com Debian 11 e PHP 7.4
 
 [OpenDCIM](https://www.opendcim.org) é:
 
