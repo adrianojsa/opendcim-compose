@@ -50,6 +50,31 @@ Para realizar o Build da imagem e iniciar o serviço em segundo plano, execute o
     
 Após completar a instalação, remova o arquivo install.php:
 
-    docker exec -it opendcim-webapp-1 rm /var/www/dcim/install.php
+    docker exec -it opendcim21-webapp-1 rm /var/www/dcim/install.php
     
-### 
+### Habilitar autenticação LDAP
+
+Depois que o openDCIM estiver funcionando com permissões de administrador (ou seja, usuário dcim), vá para o menu "Editar configuração" -> guia LDAP e configure todos os parâmetros de acordo com sua configuração LDAP.
+
+Em seguida, desative a autenticação básica e ative a autenticação LDAP:
+
+    docker exec -it opendcim21-webapp-1 mv /var/www/dcim/.htaccess /var/www/dcim/.htaccess.no
+    docker exec -it opendcim21-webapp-1 sed -i "s/Apache/LDAP/" /var/www/dcim/db.inc.php
+
+Agora você deve conseguir fazer login com credenciais de usuários LDAP.
+
+# Restaução da Instalação
+
+## Restauração de imagens
+
+As imagens podem ser encontradas nos diretórios `/data/images` `/data/pictures` e `/data/drawings` 
+
+## Restauração do Banco de Dados
+
+    zcat dcim.sql.gz | docker exec -i opendcim21-db-1 mysql -u root -psenharootmysql dcim
+
+    docker exec -it opendcim21-db-1 mysql -u root -psenhadorootmysql  dcim
+    
+Outra opção é gerenciar o banco de dados com a aplicação ADMINER. Com ele podemos realizar backup e restauração do banco de dados, alterar tabelas e consultas no banco de dados do OpenDCIM.
+
+    docker-compose -f docker-compose-db.yml up -d
